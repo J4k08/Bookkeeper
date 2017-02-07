@@ -1,8 +1,10 @@
 ﻿using System;
+using SQLite;
 namespace BookkeeperLabb2
 {
 	public class Account : Java.Lang.Object
 	{
+		[PrimaryKey]
 		public int Number { get; set; }
 		public string Name { get; set; }
 		public string Type { get; set; }

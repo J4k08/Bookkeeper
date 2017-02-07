@@ -32,38 +32,54 @@ namespace BookkeeperLabb2
 		RadioButton rbExpense;
 
 		TextView tvDate;
+		TextView tvAmountExlTax;
 		Button btnDate;
 		Button btnAddEntry;
 
 		EditText etDescription;
 		EditText etAmount;
-		EditText etAmountExclTax;
+
 		DateTime dateTime;
 
-		private Spinner spMoneyAccount;
-		private Spinner spAccount;
-		private Spinner spTax;
+		Spinner spMoneyAccount;
+		Spinner spAccount;
+		Spinner spTax;
 
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
 
+			SetContentView(Resource.Layout.NewEntryLayout);
+
 			rbIncome = FindViewById<RadioButton>(Resource.Id.RB_income);
 			rbExpense = FindViewById<RadioButton>(Resource.Id.RB_expense);
 
-			tvDate = FindViewById<TextView>(Resource.Id.BTN_date);
 			btnDate = FindViewById<Button>(Resource.Id.BTN_date);
 			btnDate.Click += DateSelect;
 
+			spAccount = FindViewById<Spinner>(Resource.Id.SP_type);
+			spTax = FindViewById<Spinner>(Resource.Id.SP_taxRate);
+			spMoneyAccount = FindViewById<Spinner>(Resource.Id.SP_moneyAccount);
 
 			etDescription = FindViewById<EditText>(Resource.Id.ET_description);
 			etAmount = FindViewById<EditText>(Resource.Id.ET_amount);
+
+			tvAmountExlTax = FindViewById<TextView>(Resource.Id.TV_totalAmountExclTax);
 
 			btnAddEntry = FindViewById<Button>(Resource.Id.BTN_addEntry);
 
 
 			setAdapters(income);
+
+			etAmount.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
+			{
+				if (etAmount != null)
+				{
+					int sum = Int32.Parse(e.Text.ToString());
+					tvAmountExlTax.Text = ("" + calculateTaxFree(sum));
+				}
+			};
 
 
 			btnAddEntry.Click += delegate
@@ -74,9 +90,10 @@ namespace BookkeeperLabb2
 					Income = income,
 					Description = description,
 					Date = dateTime,
-					AccountId = moneyAccount,
-					TypeId = type,
-					TaxRateId = tax
+					Amount = amount,
+					AccountMoney = moneyAccount,
+					AccountType = type,
+					TaxRate = tax
 				};
 				BookKeeperManager.Instance.AddEntry(e);
 			};
@@ -101,11 +118,13 @@ namespace BookkeeperLabb2
 			};
 
 		}
+
 		void DateSelect(object sender, EventArgs eventArgs)
 		{
 			DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
 																	 {
-																		 tvDate.Text = time.ToLongDateString();
+				btnDate.Text = time.ToString("yy-MM-dd");
+				dateTime = time;
 																	 });
 			frag.Show(FragmentManager, DatePickerFragment.TAG);
 		}
@@ -154,11 +173,12 @@ namespace BookkeeperLabb2
 		private void setEntryValues()
 		{
 			description = etDescription.Text;
-			amount = Int32.Parse(etAmount.Text);
+			amount = Int32.Parse(etAmount.Text.ToString());
 
 			moneyAccount = ((Account)spMoneyAccount.SelectedItem).Number;
-			tax = taxRate.Tax;
 
+
+			tax = ((TaxRate)spTax.SelectedItem).Tax;
 
 			if (income)
 			{
@@ -173,5 +193,11 @@ namespace BookkeeperLabb2
 
 		}
 
+		private double calculateTaxFree(int i)
+		{
+			double tempTax = ((TaxRate)spTax.SelectedItem).Tax;
+			double sum = i * (tempTax + 1);
+			return sum;
+		}
 	}
 }

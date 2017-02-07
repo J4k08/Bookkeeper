@@ -29,24 +29,27 @@ namespace BookkeeperLabb2
 			db.CreateTable<Account>();
 			db.CreateTable<TaxRate>();
 
-			Entries = new List<Entry>();
+			if (db.Table<Account>().Count() == 0)
+			{
 
-			IncomeAccount = new List<Account> { new Account { Name = "Spelkonsoler", Type = "income", Number = 1000 },
-				{ new Account { Name = "Actionfigurer", Type = "income", Number = 1001 } },
-				{ new Account { Name = "Spel", Type = "income", Number = 1002 } } };
+				db.Insert(new Account { Name = "Spelkonsoler", Type = "income", Number = 1000 });
+				db.Insert(new Account { Name = "Actiofigurer", Type = "income", Number = 1001 });
+				db.Insert(new Account { Name = "Spel", Type = "income", Number = 1002 });
 
-			ExpenseAccount = new List<Account> { new Account { Name = "Hyra", Type = "expense", Number = 2000 },
-				 { new Account { Name = "Personal", Type = "expense", Number = 2001 } },
-				 { new Account { Name = "Inköp", Type = "expense", Number = 2003 } } };
+				db.Insert(new Account { Name = "Hyra", Type = "expense", Number = 2000 });
+				db.Insert(new Account { Name = "Personal", Type = "expense", Number = 2001 });
+				db.Insert(new Account { Name = "Inköp", Type = "expense", Number = 2002 });
 
-			MoneyAccount = new List<Account> { new Account { Name = "Kassa", Type = "MoneyAccount", Number = 3000 },
-				 { new Account { Name = "Kassakistan", Type = "MoneyAccount", Number = 3001 } } };
+				db.Insert(new Account { Name = "Kassan", Type = "moneyAccount", Number = 3000 });
+				db.Insert(new Account { Name = "Skattkistan", Type = "moneyAccount", Number = 3001 });
 
-			TaxRates = new List<TaxRate> { new TaxRate
-				{ Tax = 0.06 },
-				{ new TaxRate { Tax = 0.12 } },
-				{ new TaxRate { Tax = 0.25 } } };
-
+			}
+			if (db.Table<TaxRate>().Count() == 0)
+			{
+				db.Insert(new TaxRate{ Tax = 0.06 });
+				db.Insert(new TaxRate { Tax = 0.12 });
+				db.Insert(new TaxRate { Tax = 0.20 });
+			}
 		}
 
 		public static BookKeeperManager Instance

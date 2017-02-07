@@ -41,7 +41,7 @@
         android:id="@+id/linearLayout1">
         <TextView
             android:hint="Beskrivning:"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/TV_description"
             android:layout_marginTop="10dp"
@@ -96,11 +96,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout4">
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:id="@+id/TV_amount"
             android:text="Summa:"
+            android:id="@+id/TV_amount"
             android:textSize="16dp" />
         <EditText
             android:layout_width="match_parent"
@@ -139,9 +139,12 @@
             android:textSize="16dp"
             android:layout_marginTop="10dp" />
         <TextView
+            android:text="-"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/TV_updatedAmount" />
+            android:layout_height="wrap_content"
+            android:id="@+id/TV_updatedAmount"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp" />
     </LinearLayout>
     <Button
         android:text="Lägg till ny händelse"
