@@ -25,6 +25,7 @@ namespace BookkeeperLabb2
 		int type;
 		int moneyAccount;
 		double tax;
+		double tempTax;
 		string description = "";
 		bool income = true;
 
@@ -71,13 +72,19 @@ namespace BookkeeperLabb2
 
 
 			setAdapters(income);
+			
 
 			etAmount.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
 			{
-				if (etAmount != null)
+				int num;
+
+				if (Int32.TryParse(e.Text.ToString(), out num)) 
 				{
-					int sum = Int32.Parse(e.Text.ToString());
-					tvAmountExlTax.Text = ("" + calculateTaxFree(sum));
+					tvAmountExlTax.Text = "" + calculateTaxFree(num) + ":";	
+				}
+				else
+				{
+					tvAmountExlTax.Text = ("-");
 				}
 			};
 
@@ -195,7 +202,7 @@ namespace BookkeeperLabb2
 
 		private double calculateTaxFree(int i)
 		{
-			double tempTax = ((TaxRate)spTax.SelectedItem).Tax;
+			tempTax = ((TaxRate)spTax.SelectedItem).Tax;
 			double sum = i * (tempTax + 1);
 			return sum;
 		}
