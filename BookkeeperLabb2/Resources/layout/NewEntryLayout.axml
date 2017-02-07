@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Här kan du lägga till nya händelser, antingen inkomster eller utgifter"
+        android:textSize="18dp" />
+    <RadioGroup
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Inkomst"
+            android:textSize="20dp"
+            android:id="@+id/RB_income"
+            android:layout_marginTop="10dp" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Utgifter"
+            android:textSize="20dp"
+            android:id="@+id/RB_expense" />
+        <Button
+            android:text="Datum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/BTN_date" />
+    </RadioGroup>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1">
+        <TextView
+            android:hint="Beskrivning:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TV_description"
+            android:layout_marginTop="10dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ET_description"
+            android:layout_marginTop="10dp"
+            android:textSize="16dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2">
+        <TextView
+            android:text="Typ:"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/TV_type"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/SP_type" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3">
+        <TextView
+            android:text="Till/Från konto:"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/Tv_toOrfromAccount"
+            android:layout_marginTop="15dp"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/SP_moneyAccount" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout4">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/TV_amount"
+            android:text="Summa:"
+            android:textSize="16dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ET_amount"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout5">
+        <TextView
+            android:text="Moms:"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/TV_taxRate"
+            android:layout_marginTop="10dp"
+            android:textSize="16dp" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/SP_taxRate" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout6">
+        <TextView
+            android:text="Total belopp (exkl. moms): "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TV_totalAmountExclTax"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/TV_updatedAmount" />
+    </LinearLayout>
+    <Button
+        android:text="Lägg till ny händelse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/BTN_addEntry"
+        android:layout_marginTop="40dp" />
+</LinearLayout>
