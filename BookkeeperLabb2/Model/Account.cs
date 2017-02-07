@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BookkeeperLabb2
 {
-	public class Account
+	public class Account : Java.Lang.Object
 	{
 		public int Number { get; set; }
 		public string Name { get; set; }

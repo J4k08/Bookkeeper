@@ -26,18 +26,17 @@ namespace BookkeeperLabb2
 		int moneyAccount;
 		double tax;
 		string description = "";
+		bool income = true;
 
 		RadioButton rbIncome;
 		RadioButton rbExpense;
 
-		TextView dateDisplay;
+		TextView tvDate;
 		Button btnDate;
-		bool income = true;
-
-		Button addEntry;
+		Button btnAddEntry;
 
 		EditText etDescription;
-		EditText etAmmunt;
+		EditText etAmount;
 		EditText etAmountExclTax;
 		DateTime dateTime;
 
@@ -52,15 +51,42 @@ namespace BookkeeperLabb2
 		{
 			base.OnCreate(savedInstanceState);
 
-			rbIncome = FindViewById<RadioButton>(Resource.Id.)
+			rbIncome = FindViewById<RadioButton>(Resource.Id.RB_income);
+			rbExpense = FindViewById<RadioButton>(Resource.Id.RB_expense);
 
+			btnDate = FindViewById<Button>(Resource.Id.BTN_date);
+			btnDate.Click += Date_Onclick;
+			tvDate = FindViewById<TextView>(Resource.Id.BTN_date);
+
+			etDescription = FindViewById<EditText>(Resource.Id.ET_description);
+			etAmount = FindViewById<EditText>(Resource.Id.ET_amount);
+
+			btnAddEntry = FindViewById<Button>(Resource.Id.BTN_addEntry);
+
+
+			setAdapters(income);
+
+
+			btnAddEntry.Click += delegate
+			{
+				setEntryValues();
+				Entry e = new Entry
+				{
+					Income = income,
+					Description = description,
+					Date = dateTime,
+					AccountId = moneyAccount,
+					TypeId = type,
+					TaxRateId = tax
+				};
+			};
 
 			rbIncome.Click += delegate
 			{
 				if (rbIncome.Checked)
 				{
 					Console.WriteLine(income = true);
-					//setAdapter(income);
+					setTypeSpinner(income);
 				}
 			};
 
@@ -69,9 +95,86 @@ namespace BookkeeperLabb2
 				if (rbExpense.Checked)
 				{
 					Console.WriteLine(income = false);
-					//setAdapter(income);
+					setTypeSpinner(income);
 				}
 
+			};
+
 		}
+
+		private void setAdapters(bool b)
+		{
+			setMoneyAccountSpinner();
+			setTypeSpinner(income);
+			setTaxRateSpinner();
+
+		}
+
+		private void setMoneyAccountSpinner()
+		{
+			ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
+														BookKeeperManager.Instance.getAccounts("moneyAccount"));
+			typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			spMoneyAccount.Adapter = typeAdapter;
+		}
+
+		private void setTypeSpinner(bool income)
+		{
+			if (income)
+			{
+				ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
+															BookKeeperManager.Instance.getAccounts("income"));
+				typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+				spAccount.Adapter = typeAdapter;
+			}
+			else
+			{
+				ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
+															BookKeeperManager.Instance.getAccounts("expense"));
+				typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+				spAccount.Adapter = typeAdapter;
+			}
+		}
+		private void setTaxRateSpinner()
+		{
+			ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
+														BookKeeperManager.Instance.getTaxRates());
+			typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			spTax.Adapter = typeAdapter;
+		}
+
+		void Date_Onclick(object sender, EventArgs eventArgs)
+		{
+			DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+																	 {
+																		 tvDate.Text = time.ToString("yyyy-MM-dd");
+																		 dateTime = time;
+
+																	 });
+			frag.Show(FragmentManager, DatePickerFragment.TAG);
+		}
+
+		private void setEntryValues()
+		{
+			description = etDescription.Text;
+			amount = Int32.Parse(etAmount.Text);
+
+			moneyAccount = ((Account)spMoneyAccount.SelectedItem).Number;
+			tax = taxRate.Tax;
+
+
+			if (income)
+			{
+				ac = BookKeeperManager.Instance.getAccounts("income")[spAccount.SelectedItemPosition];
+			}
+			else
+			{
+				ac = BookKeeperManager.Instance.getAccounts("expense")[spAccount.SelectedItemPosition];
+			}
+
+			type = ((Account)spAccount.SelectedItem).Number;
+
+		}
+
 	}
 }

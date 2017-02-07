@@ -59,6 +59,7 @@
     <Compile Include="Model\TaxRate.cs" />
     <Compile Include="Model\BookKeeperManager.cs" />
     <Compile Include="Model\Entry.cs" />
+    <Compile Include="Model\DatePickerFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
