@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using System.Globalization;
 
 namespace BookkeeperLabb2
 {
@@ -40,11 +40,9 @@ namespace BookkeeperLabb2
 		EditText etAmountExclTax;
 		DateTime dateTime;
 
-		Spinner spMoneyAccount;
-		Spinner spAccount;
-		Spinner spTax;
-
-
+		private Spinner spMoneyAccount;
+		private Spinner spAccount;
+		private Spinner spTax;
 
 
 		protected override void OnCreate(Bundle savedInstanceState)
@@ -54,9 +52,10 @@ namespace BookkeeperLabb2
 			rbIncome = FindViewById<RadioButton>(Resource.Id.RB_income);
 			rbExpense = FindViewById<RadioButton>(Resource.Id.RB_expense);
 
-			btnDate = FindViewById<Button>(Resource.Id.BTN_date);
-			btnDate.Click += Date_Onclick;
 			tvDate = FindViewById<TextView>(Resource.Id.BTN_date);
+			btnDate = FindViewById<Button>(Resource.Id.BTN_date);
+			btnDate.Click += DateSelect;
+
 
 			etDescription = FindViewById<EditText>(Resource.Id.ET_description);
 			etAmount = FindViewById<EditText>(Resource.Id.ET_amount);
@@ -79,6 +78,7 @@ namespace BookkeeperLabb2
 					TypeId = type,
 					TaxRateId = tax
 				};
+				BookKeeperManager.Instance.AddEntry(e);
 			};
 
 			rbIncome.Click += delegate
@@ -100,6 +100,14 @@ namespace BookkeeperLabb2
 
 			};
 
+		}
+		void DateSelect(object sender, EventArgs eventArgs)
+		{
+			DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+																	 {
+																		 tvDate.Text = time.ToLongDateString();
+																	 });
+			frag.Show(FragmentManager, DatePickerFragment.TAG);
 		}
 
 		private void setAdapters(bool b)
@@ -141,17 +149,6 @@ namespace BookkeeperLabb2
 														BookKeeperManager.Instance.getTaxRates());
 			typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			spTax.Adapter = typeAdapter;
-		}
-
-		void Date_Onclick(object sender, EventArgs eventArgs)
-		{
-			DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
-																	 {
-																		 tvDate.Text = time.ToString("yyyy-MM-dd");
-																		 dateTime = time;
-
-																	 });
-			frag.Show(FragmentManager, DatePickerFragment.TAG);
 		}
 
 		private void setEntryValues()

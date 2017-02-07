@@ -48,7 +48,7 @@ namespace BookkeeperLabb2
 			public const int BTN_addEntry = 2130968601;
 			
 			// aapt resource value: 0x7f040000
-			public const int BTN_createEvent = 2130968576;
+			public const int BTN_createEntry = 2130968576;
 			
 			// aapt resource value: 0x7f040002
 			public const int BTN_createReport = 2130968578;
@@ -57,7 +57,7 @@ namespace BookkeeperLabb2
 			public const int BTN_date = 2130968582;
 			
 			// aapt resource value: 0x7f040001
-			public const int BTN_viewEvent = 2130968577;
+			public const int BTN_viewEntry = 2130968577;
 			
 			// aapt resource value: 0x7f040012
 			public const int ET_amount = 2130968594;

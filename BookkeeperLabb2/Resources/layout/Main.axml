@@ -7,21 +7,21 @@
         android:text="Ny händelse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/BTN_createEvent"
-        android:layout_marginTop="10dp"
+        android:id="@+id/BTN_createEntry"
+        android:layout_marginTop="15dp"
         android:layout_margin="5dp" />
     <Button
         android:text="Visa alla händelser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/BTN_viewEvent"
-        android:layout_marginTop="10dp"
+        android:id="@+id/BTN_viewEntry"
+        android:layout_marginTop="15dp"
         android:layout_margin="5dp" />
     <Button
         android:text="Skapa rapporter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/BTN_createReport"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_margin="5dp" />
 </LinearLayout>

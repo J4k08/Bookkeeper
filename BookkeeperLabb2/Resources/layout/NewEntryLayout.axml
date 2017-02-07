@@ -28,12 +28,12 @@
             android:text="Utgifter"
             android:textSize="20dp"
             android:id="@+id/RB_expense" />
-        <Button
-            android:text="Datum"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/BTN_date" />
     </RadioGroup>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Datum"
+        android:id="@+id/BTN_date" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
