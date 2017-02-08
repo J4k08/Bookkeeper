@@ -93,7 +93,15 @@ namespace BookkeeperLabb2
 			db.Insert(e);
 			Console.WriteLine(e.ToString());
 		}
+
 	
-	
+		public string getTaxReport()
+		{
+			var taxReport = getEntries().Select(e => string.Format("{0}, {1},\t {2}:- ",e.Date.ToString("yyyy-MM-dd"),
+			                                                       e.Description,
+			                                                       (e.isIncome ? (e.Amount * e.TaxRate):(e.Amount * e.TaxRate)*-1)));
+
+			return string.Join("\n", taxReport);
+		}
 	}
 }

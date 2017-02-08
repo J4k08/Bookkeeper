@@ -95,6 +95,9 @@ namespace BookkeeperLabb2
 			// aapt resource value: 0x7f040015
 			public const int TV_amount = 2130968597;
 			
+			// aapt resource value: 0x7f04001e
+			public const int TV_createReport = 2130968606;
+			
 			// aapt resource value: 0x7f04000c
 			public const int TV_description = 2130968588;
 			

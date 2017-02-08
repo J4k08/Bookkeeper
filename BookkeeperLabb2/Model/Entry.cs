@@ -6,7 +6,7 @@ namespace BookkeeperLabb2
 	{
 		[PrimaryKey, AutoIncrement, Column("_ID")]
 		public int Id { get; private set; }
-		public bool Income { get; set; }
+		public bool isIncome { get; set; }
 		public int Amount { get; set; }
 		public DateTime Date { get; set; }
 		public string Description { get; set; }
@@ -19,7 +19,7 @@ namespace BookkeeperLabb2
 		}
 		public Entry(bool income, int amount, DateTime date, string description, int accountType, int accountMoney, double taxRate)
 		{
-			Income = income;
+			isIncome = income;
 			Amount = amount;
 			Date = date;
 			Description = description;
@@ -31,7 +31,7 @@ namespace BookkeeperLabb2
 		public override string ToString()
 		{
 			return string.Format("[Entry: Id={0}, Income={1}, Ammount={2}, Date={3}, Description={4}, TypeId={5}," +
-								 " AccountId={6}, TaxRateId={7}]", Id, Income, Amount, Date, Description, AccountType,
+								 " AccountId={6}, TaxRateId={7}]", Id, isIncome, Amount, Date, Description, AccountType,
 								 AccountMoney, TaxRate);
 		}
 

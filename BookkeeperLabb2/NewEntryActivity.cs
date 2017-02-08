@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,7 +94,7 @@ namespace BookkeeperLabb2
 				setEntryValues();
 				Entry e = new Entry
 				{
-					Income = income,
+					isIncome = income,
 					Description = description,
 					Date = dateTime,
 					Amount = amount,

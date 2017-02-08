@@ -6,5 +6,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@id/TV_taxReport" />
+        android:id="@+id/TV_createReport"
+        android:scrollbars="vertical" />
 </LinearLayout>
