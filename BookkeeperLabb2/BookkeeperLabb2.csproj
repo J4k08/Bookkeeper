@@ -62,6 +62,7 @@
     <Compile Include="Model\DatePickerFragment.cs" />
     <Compile Include="Model\EntryAdapter.cs" />
     <Compile Include="ViewEntryActivity.cs" />
+    <Compile Include="CreateReportsActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -75,6 +76,7 @@
     <AndroidResource Include="Resources\layout\NewEntryLayout.axml" />
     <AndroidResource Include="Resources\layout\EntryListLayout.axml" />
     <AndroidResource Include="Resources\layout\EntryListItem.axml" />
+    <AndroidResource Include="Resources\layout\TaxReportLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\mipmap-hdpi\" />

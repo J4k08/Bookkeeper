@@ -4,7 +4,7 @@ namespace BookkeeperLabb2
 {
 	public class Entry : Java.Lang.Object
 	{
-		[PrimaryKey, AutoIncrement]
+		[PrimaryKey, AutoIncrement, Column("_ID")]
 		public int Id { get; private set; }
 		public bool Income { get; set; }
 		public int Amount { get; set; }

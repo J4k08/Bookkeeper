@@ -13,20 +13,18 @@ using Android.Widget;
 
 namespace BookkeeperLabb2
 {
-	[Activity(Label = "ViewEntryActivity")]
-	public class ViewEntryActivity : Activity
+	[Activity(Label = "CreateReportsActivity")]
+	public class CreateReportsActivity : Activity
 	{
-
-		ListView entryList;
+		TextView taxReport;
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
 
-			SetContentView(Resource.Layout.EntryListLayout);
+			SetContentView(Resource.Layout.TaxReportLayout);
 
-			entryList = FindViewById<ListView>(Resource.Id.LV_entries);
+			//taxReport = FindViewById<TextView>(Resource.Id.t)
 
-			entryList.Adapter = new EntryAdapter(this);
 
 		}
 	}

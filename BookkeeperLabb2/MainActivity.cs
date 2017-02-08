@@ -17,13 +17,28 @@ namespace BookkeeperLabb2
 			SetContentView(Resource.Layout.Main);
 
 			Button btn_newEntry =  FindViewById<Button>(Resource.Id.BTN_createEntry);
+			Button btn_viewEntry = FindViewById<Button>(Resource.Id.BTN_viewEntry);
+			Button btn_createTaxReport = FindViewById<Button>(Resource.Id.BTN_createReport);
 
 			btn_newEntry.Click += delegate
 			{
-				Intent i = new Intent(this, typeof(NewEntryActivity));
-				StartActivity(i);
+				Intent newEntryIntent = new Intent(this, typeof(NewEntryActivity));
+				StartActivity(newEntryIntent);
 
 			};
+
+			btn_viewEntry.Click += delegate
+			{
+				Intent viewEntryIntent = new Intent(this, typeof(ViewEntryActivity));
+				StartActivity(viewEntryIntent);
+			};
+
+			btn_createTaxReport.Click += delegate
+			{
+				Intent createReportIntent = new Intent(this, typeof(CreateReportsActivity));
+				StartActivity(createReportIntent);
+			};
+
 		}
 	}
 }

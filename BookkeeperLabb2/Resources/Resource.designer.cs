@@ -159,6 +159,9 @@ namespace BookkeeperLabb2
 			// aapt resource value: 0x7f020003
 			public const int NewEntryLayout = 2130837507;
 			
+			// aapt resource value: 0x7f020004
+			public const int TaxReportLayout = 2130837508;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

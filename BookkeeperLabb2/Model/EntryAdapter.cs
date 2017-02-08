@@ -4,6 +4,7 @@ using Android.App;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using SQLite;
 
 namespace BookkeeperLabb2
 {
@@ -11,11 +12,11 @@ namespace BookkeeperLabb2
 	{
 
 		private Activity context;
-		public List<Entry> Entries { get; set; }
-		public EntryAdapter(Activity activity, List<Entry> entries)
+		SQLiteConnection db;
+
+		public EntryAdapter(Activity activity)
 		{
 			this.context = activity;
-			Entries = entries;
 		}
 
 		public override int Count
@@ -23,6 +24,13 @@ namespace BookkeeperLabb2
 			get
 			{
 				return Entries.Count;
+			}
+		}
+		public List<Entry> Entries 
+		{
+			get
+			{
+				return BookKeeperManager.Instance.getEntries();
 			}
 		}
 
@@ -38,9 +46,14 @@ namespace BookkeeperLabb2
 
 		public override View GetView(int position, View convertView, ViewGroup parent)
 		{
-			View view = context.LayoutInflater.Inflate(Resource.Layout.EntryListItem, parent, false);
+			View view = convertView ?? context.LayoutInflater.Inflate(Resource.Layout.EntryListItem, parent, false);
 
-			view.FindViewById<TextView>(Resource.Id.);
+
+			view.FindViewById<TextView>(Resource.Id.ListItem_date).Text = Entries[position].Date.ToString("yyyy-MM-dd");
+			view.FindViewById<TextView>(Resource.Id.ListItem_description).Text = Entries[position].Description.ToString();
+			view.FindViewById<TextView>(Resource.Id.ListItem_amount).Text = Entries[position].Amount+"";
+
+			return view;
 		}
 	}
 }

@@ -46,7 +46,7 @@ namespace BookkeeperLabb2
 			}
 			if (db.Table<TaxRate>().Count() == 0)
 			{
-				db.Insert(new TaxRate{ Tax = 0.06 });
+				db.Insert(new TaxRate { Tax = 0.06 });
 				db.Insert(new TaxRate { Tax = 0.12 });
 				db.Insert(new TaxRate { Tax = 0.20 });
 			}
@@ -83,7 +83,7 @@ namespace BookkeeperLabb2
 		{
 			return db.Get<TaxRate>(id);
 		}
-		public List<Entry> getEntries() 
+		public List<Entry> getEntries()
 		{
 			return db.Table<Entry>().ToList();
 		}
@@ -92,8 +92,8 @@ namespace BookkeeperLabb2
 		{
 			db.Insert(e);
 			Console.WriteLine(e.ToString());
-
 		}
-
+	
+	
 	}
 }

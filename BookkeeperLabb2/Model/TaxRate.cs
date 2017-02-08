@@ -6,7 +6,7 @@ namespace BookkeeperLabb2
 	public class TaxRate : Java.Lang.Object
 	{
 
-		[PrimaryKey, AutoIncrement]
+		[PrimaryKey, AutoIncrement, Column("_ID")]
 		public int Id { get; set; }
 		public double Tax { get; set; }
 

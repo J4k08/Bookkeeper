@@ -210,7 +210,7 @@ namespace BookkeeperLabb2
 		private double calculateTaxFree()
 		{
 			tempTax = ((TaxRate)spTax.SelectedItem).Tax;
-			double sum = num * (tempTax + 1);
+			double sum = num * (1 - tempTax);
 			return sum;
 		}
 	}
