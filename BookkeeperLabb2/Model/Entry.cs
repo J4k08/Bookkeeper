@@ -2,7 +2,7 @@
 using SQLite;
 namespace BookkeeperLabb2
 {
-	public class Entry
+	public class Entry : Java.Lang.Object
 	{
 		[PrimaryKey, AutoIncrement]
 		public int Id { get; private set; }

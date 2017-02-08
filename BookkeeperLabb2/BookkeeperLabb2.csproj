@@ -60,6 +60,8 @@
     <Compile Include="Model\BookKeeperManager.cs" />
     <Compile Include="Model\Entry.cs" />
     <Compile Include="Model\DatePickerFragment.cs" />
+    <Compile Include="Model\EntryAdapter.cs" />
+    <Compile Include="ViewEntryActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
