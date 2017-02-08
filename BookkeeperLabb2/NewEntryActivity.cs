@@ -21,6 +21,7 @@ namespace BookkeeperLabb2
 		TaxRate taxRate;
 		Account moneyAc;
 
+		int num;
 		int amount;
 		int type;
 		int moneyAccount;
@@ -76,11 +77,10 @@ namespace BookkeeperLabb2
 
 			etAmount.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
 			{
-				int num;
-
+				
 				if (Int32.TryParse(e.Text.ToString(), out num)) 
 				{
-					tvAmountExlTax.Text = "" + calculateTaxFree(num) + ":";	
+					tvAmountExlTax.Text = "" + calculateTaxFree() + ":";	
 				}
 				else
 				{
@@ -122,6 +122,13 @@ namespace BookkeeperLabb2
 					setTypeSpinner(income);
 				}
 
+			};
+
+			spTax.ItemSelected += delegate {
+				
+				tempTax = ((TaxRate)spTax.SelectedItem).Tax;
+				calculateTaxFree();
+				
 			};
 
 		}
@@ -200,10 +207,10 @@ namespace BookkeeperLabb2
 
 		}
 
-		private double calculateTaxFree(int i)
+		private double calculateTaxFree()
 		{
 			tempTax = ((TaxRate)spTax.SelectedItem).Tax;
-			double sum = i * (tempTax + 1);
+			double sum = num * (tempTax + 1);
 			return sum;
 		}
 	}
