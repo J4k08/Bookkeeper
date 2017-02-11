@@ -17,35 +17,33 @@ namespace BookkeeperLabb2
 	public class NewEntryActivity : Activity
 	{
 
-		Account ac;
-		TaxRate taxRate;
-		Account moneyAc;
+		private Account ac;
+		//TaxRate taxRate;
+		//Account moneyAc;
+		private string amountChanged;
+		private int amount;
+		private int type;
+		private int moneyAccount;
+		private double tax;
+		private double tempTax;
+		private string description = "";
+		private bool income = true;
 
-		int num;
-		int amount;
-		int type;
-		int moneyAccount;
-		double tax;
-		double tempTax;
-		string description = "";
-		bool income = true;
+		private RadioButton rbIncome;
+		private RadioButton rbExpense;
 
-		RadioButton rbIncome;
-		RadioButton rbExpense;
+		private TextView tvAmountExlTax;
+		private Button btnDate;
+		private Button btnAddEntry;
 
-		TextView tvDate;
-		TextView tvAmountExlTax;
-		Button btnDate;
-		Button btnAddEntry;
+		private EditText etDescription;
+		private EditText etAmount;
 
-		EditText etDescription;
-		EditText etAmount;
+		private DateTime dateTime;
 
-		DateTime dateTime;
-
-		Spinner spMoneyAccount;
-		Spinner spAccount;
-		Spinner spTax;
+		private Spinner spMoneyAccount;
+		private Spinner spAccount;
+		private Spinner spTax;
 
 
 		protected override void OnCreate(Bundle savedInstanceState)
@@ -73,19 +71,13 @@ namespace BookkeeperLabb2
 
 
 			setAdapters(income);
-			
+
 
 			etAmount.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
 			{
-				
-				if (Int32.TryParse(e.Text.ToString(), out num)) 
-				{
-					tvAmountExlTax.Text = "" + calculateTaxFree() + ":";	
-				}
-				else
-				{
-					tvAmountExlTax.Text = ("-");
-				}
+				amountChanged = e.Text.ToString();
+				calculateTaxFree(amountChanged);
+
 			};
 
 
@@ -103,6 +95,8 @@ namespace BookkeeperLabb2
 					TaxRate = tax
 				};
 				BookKeeperManager.Instance.AddEntry(e);
+				Toast.MakeText(this, "Händelse skapad!", ToastLength.Short).Show();
+
 			};
 
 			rbIncome.Click += delegate
@@ -127,7 +121,7 @@ namespace BookkeeperLabb2
 			spTax.ItemSelected += delegate {
 				
 				tempTax = ((TaxRate)spTax.SelectedItem).Tax;
-				calculateTaxFree();
+				calculateTaxFree(amountChanged);
 				
 			};
 
@@ -207,11 +201,19 @@ namespace BookkeeperLabb2
 
 		}
 
-		private double calculateTaxFree()
+		private void calculateTaxFree(string s)
 		{
+			int num;
 			tempTax = ((TaxRate)spTax.SelectedItem).Tax;
-			double sum = num * (1 - tempTax);
-			return sum;
+			if (Int32.TryParse(etAmount.Text.ToString(), out num))
+			{
+				tvAmountExlTax.Text = "" + (num * (1 - tempTax)) + ":";
+			}
+			else
+			{
+				tvAmountExlTax.Text = ("-");
+			}
+
 		}
 	}
 }

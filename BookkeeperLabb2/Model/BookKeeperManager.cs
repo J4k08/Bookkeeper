@@ -7,11 +7,11 @@ namespace BookkeeperLabb2
 {
 	public class BookKeeperManager
 	{
-		public List<Entry> Entries { get; private set; }
-		public List<TaxRate> TaxRates { get; private set; }
-		public List<Account> MoneyAccount { get; private set; }
-		public List<Account> IncomeAccount { get; private set; }
-		public List<Account> ExpenseAccount { get; private set; }
+		//public List<Entry> Entries { get; private set; }
+		//public List<TaxRate> TaxRates { get; private set; }
+		//public List<Account> MoneyAccount { get; private set; }
+		//public List<Account> IncomeAccount { get; private set; }
+		//public List<Account> ExpenseAccount { get; private set; }
 
 		SQLiteConnection db;
 
@@ -97,7 +97,7 @@ namespace BookkeeperLabb2
 	
 		public string getTaxReport()
 		{
-			var taxReport = getEntries().Select(e => string.Format("{0}, {1},\t {2}:- ",e.Date.ToString("yyyy-MM-dd"),
+			var taxReport = getEntries().Select(e => string.Format("{0}, {1}. Moms: {2}:- ",e.Date.ToString("yyyy-MM-dd"),
 			                                                       e.Description,
 			                                                       (e.isIncome ? (e.Amount * e.TaxRate):(e.Amount * e.TaxRate)*-1)));
 

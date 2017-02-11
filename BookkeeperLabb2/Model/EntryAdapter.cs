@@ -51,7 +51,7 @@ namespace BookkeeperLabb2
 
 			view.FindViewById<TextView>(Resource.Id.ListItem_date).Text = Entries[position].Date.ToString("yyyy-MM-dd");
 			view.FindViewById<TextView>(Resource.Id.ListItem_description).Text = Entries[position].Description.ToString();
-			view.FindViewById<TextView>(Resource.Id.ListItem_amount).Text = Entries[position].Amount+"";
+			view.FindViewById<TextView>(Resource.Id.ListItem_amount).Text = Entries[position].Amount+" kr";
 
 			return view;
 		}
