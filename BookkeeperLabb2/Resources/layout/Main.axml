@@ -18,7 +18,7 @@
         android:layout_marginTop="15dp"
         android:layout_margin="5dp" />
     <Button
-        android:text="Skapa rapporter"
+        android:text="Skapa momsrapport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/BTN_createReport"
