@@ -14,10 +14,7 @@ namespace BookkeeperLabb2
 		//public List<Account> ExpenseAccount { get; private set; }
 
 		SQLiteConnection db;
-
-
 		string pathToDb = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-
 
 		private static BookKeeperManager instance;
 
@@ -52,6 +49,8 @@ namespace BookkeeperLabb2
 			}
 		}
 
+		/* Singleton constructor. If the BookkeeperManager object doesn't already exists, it'll create one, otherwise
+		 * it'll return (BookKeeperManager instance) */
 		public static BookKeeperManager Instance
 		{
 			get
@@ -64,40 +63,33 @@ namespace BookkeeperLabb2
 			}
 
 		}
-
-		public List<Account> getAccounts(string type)
+		/* returns a List of Accounts from the sqlite-database */
+		public List<Account> GetAccounts(string type)
 		{
 			return db.Table<Account>().Where(Account => Account.Type.Equals(type)).ToList();
 		}
-
-		public Account getOneAccount(int id)
-		{
-			return db.Get<Account>(id);
-		}
-
-		public List<TaxRate> getTaxRates()
+		/* returns a List of TaxRates from the sqlite-database */
+		public List<TaxRate> GetTaxRates()
 		{
 			return db.Table<TaxRate>().ToList();
 		}
-		public TaxRate getTaxRate(int id)
-		{
-			return db.Get<TaxRate>(id);
-		}
-		public List<Entry> getEntries()
+		/* returns a List of Entries from the sqlite-database */
+		public List<Entry> GetEntries()
 		{
 			return db.Table<Entry>().ToList();
 		}
-
+		/* Method for adding an Entry into the sqlite-database */ 
 		public void AddEntry(Entry e)
 		{
 			db.Insert(e);
 			Console.WriteLine(e.ToString());
 		}
 
-	
-		public string getTaxReport()
+		/* (Var taxReport) is returned after adding all the Entries from the sqlite-database. If e.isIncome is true, 
+		it returns a positive number, else if e.isincome is false, it'll return a negative number. */
+		public string GetTaxReport()
 		{
-			var taxReport = getEntries().Select(e => string.Format("{0}, {1}. Moms: {2}:- ",e.Date.ToString("yyyy-MM-dd"),
+			var taxReport = GetEntries().Select(e => string.Format("{0}, {1}. Moms: {2}:- ",e.Date.ToString("yyyy-MM-dd"),
 			                                                       e.Description,
 			                                                       (e.isIncome ? (e.Amount * e.TaxRate):(e.Amount * e.TaxRate)*-1)));
 

@@ -18,8 +18,6 @@ namespace BookkeeperLabb2
 	{
 
 		private Account ac;
-		//TaxRate taxRate;
-		//Account moneyAc;
 		private string amountChanged;
 		private int amount;
 		private int type;
@@ -54,36 +52,34 @@ namespace BookkeeperLabb2
 
 			rbIncome = FindViewById<RadioButton>(Resource.Id.RB_income);
 			rbExpense = FindViewById<RadioButton>(Resource.Id.RB_expense);
-
 			btnDate = FindViewById<Button>(Resource.Id.BTN_date);
 			btnDate.Click += DateSelect;
-
 			spAccount = FindViewById<Spinner>(Resource.Id.SP_type);
 			spTax = FindViewById<Spinner>(Resource.Id.SP_taxRate);
 			spMoneyAccount = FindViewById<Spinner>(Resource.Id.SP_moneyAccount);
-
 			etDescription = FindViewById<EditText>(Resource.Id.ET_description);
 			etAmount = FindViewById<EditText>(Resource.Id.ET_amount);
-
 			tvAmountExlTax = FindViewById<TextView>(Resource.Id.TV_totalAmountExclTax);
-
 			btnAddEntry = FindViewById<Button>(Resource.Id.BTN_addEntry);
-
 
 			setAdapters(income);
 
 
+
+
+			/* Method for changing (TextView tvAmountExlTax) whenever you type or change digits in (EditText etAmount)
+			method call CalculateTaxFree() and uses the string created from the EditText as an argument!*/
 			etAmount.TextChanged += (object sender, Android.Text.TextChangedEventArgs e) =>
 			{
 				amountChanged = e.Text.ToString();
-				calculateTaxFree(amountChanged);
-
+				CalculateTaxFree(amountChanged);
 			};
 
-
+			/* Whenever (Button btnAddEntry) is clicked, it calls on SetEntryValues() and then creates an Entry object. Then it
+			calls BookkeeperManager's AddEntry() with the Entry as an argument. */
 			btnAddEntry.Click += delegate
 			{
-				setEntryValues();
+				SetEntryValues();
 				Entry e = new Entry
 				{
 					isIncome = income,
@@ -96,37 +92,39 @@ namespace BookkeeperLabb2
 				};
 				BookKeeperManager.Instance.AddEntry(e);
 				Toast.MakeText(this, "Händelse skapad!", ToastLength.Short).Show();
-
 			};
-
+			/* Whenever (RadioButton rbIncome) is Checked, it changes (Bool income) to true and calls method SetTypeSpinner() */
 			rbIncome.Click += delegate
 			{
 				if (rbIncome.Checked)
 				{
 					Console.WriteLine(income = true);
-					setTypeSpinner(income);
+					SetTypeSpinner(income);
 				}
 			};
-
+			/* Whenever (RadioButton rbExpense) is checked, it changes (Bool income) to false and calls method SetTypeSpinner() */ 
 			rbExpense.Click += delegate
 			{
 				if (rbExpense.Checked)
 				{
 					Console.WriteLine(income = false);
-					setTypeSpinner(income);
+					SetTypeSpinner(income);
 				}
 
 			};
 
+			/* If you click on one of the elements in (Spinner spTax), it'll set (Double tempTax) to it's correct value and call on
+			 * CalculateTaxfree() */
 			spTax.ItemSelected += delegate {
 				
 				tempTax = ((TaxRate)spTax.SelectedItem).Tax;
-				calculateTaxFree(amountChanged);
+				CalculateTaxFree(amountChanged);
 				
 			};
 
 		}
 
+		/* Method for DatePicker, it opens a fragment and whatever date you click on is saved in (DateTime time) */
 		void DateSelect(object sender, EventArgs eventArgs)
 		{
 			DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
@@ -137,23 +135,24 @@ namespace BookkeeperLabb2
 			frag.Show(FragmentManager, DatePickerFragment.TAG);
 		}
 
+		/* Method for setting ArrayAdapters, it calls SetMoneyAccountSpinner(), SetTypeSpinner() and SetTaxRateSpinner() */
 		private void setAdapters(bool b)
 		{
-			setMoneyAccountSpinner();
-			setTypeSpinner(income);
-			setTaxRateSpinner();
+			SetMoneyAccountSpinner();
+			SetTypeSpinner(income);
+			SetTaxRateSpinner();
 
 		}
-
-		private void setMoneyAccountSpinner()
+		/* Method for getting the MoneyAccounts from BookKeeperManager into (Spinner spMoneyAccount) using an ArrayAdapter */
+		private void SetMoneyAccountSpinner()
 		{
 			ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
 														BookKeeperManager.Instance.getAccounts("moneyAccount"));
 			typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			spMoneyAccount.Adapter = typeAdapter;
 		}
-
-		private void setTypeSpinner(bool income)
+		/* Based on (Bool income), either income or expense accounts will be set in (Spinner spAccount) */
+		private void SetTypeSpinner(bool income)
 		{
 			if (income)
 			{
@@ -170,15 +169,17 @@ namespace BookkeeperLabb2
 				spAccount.Adapter = typeAdapter;
 			}
 		}
-		private void setTaxRateSpinner()
+		/* Method for getting the TaxRates from BookKeeperManager into (Spinner spTax) */ 
+		private void SetTaxRateSpinner()
 		{
 			ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
 														BookKeeperManager.Instance.getTaxRates());
 			typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			spTax.Adapter = typeAdapter;
 		}
-
-		private void setEntryValues()
+		/* Method for setting different variables, somewhat redundant method but I didn't want too much code 
+		 * in my btnAddEntry-method */
+		private void SetEntryValues()
 		{
 			description = etDescription.Text;
 			amount = Int32.Parse(etAmount.Text.ToString());
@@ -200,8 +201,10 @@ namespace BookkeeperLabb2
 			type = ((Account)spAccount.SelectedItem).Number;
 
 		}
-
-		private void calculateTaxFree(string s)
+		/* Method for changing the values in the (TextView tvAmountExcTax). If Int32.TryParse returns true it means there
+		 * were numbers in (EditText etAmount) and it successfully converted them. If it returns false it'll just set 
+		 * (TextView tvAmountExlTax) to "-" */
+		private void CalculateTaxFree(string s)
 		{
 			int num;
 			tempTax = ((TaxRate)spTax.SelectedItem).Tax;
