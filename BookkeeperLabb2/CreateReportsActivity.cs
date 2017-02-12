@@ -25,7 +25,7 @@ namespace BookkeeperLabb2
 
 			taxReport = FindViewById<TextView>(Resource.Id.TV_createReport);
 
-			taxReport.Text = BookKeeperManager.Instance.getTaxReport();
+			taxReport.Text = BookKeeperManager.Instance.GetTaxReport();
 		}
 	}
 }

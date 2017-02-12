@@ -13,7 +13,7 @@ namespace BookkeeperLabb2
 		{
 
 		}
-
+		/* Choose to override ToString to be able to debug easier */
 		public override string ToString()
 		{
 			return string.Format("{0} ({1})", Name, Number);

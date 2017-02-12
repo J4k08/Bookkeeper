@@ -89,7 +89,7 @@ namespace BookkeeperLabb2
 		it returns a positive number, else if e.isincome is false, it'll return a negative number. */
 		public string GetTaxReport()
 		{
-			var taxReport = GetEntries().Select(e => string.Format("{0}, {1}. Moms: {2}:- ",e.Date.ToString("yyyy-MM-dd"),
+			var taxReport = GetEntries().Select(e => string.Format("[{0}]  [{1}]  [Moms: {2}:- ]",e.Date.ToString("yyyy-MM-dd"),
 			                                                       e.Description,
 			                                                       (e.isIncome ? (e.Amount * e.TaxRate):(e.Amount * e.TaxRate)*-1)));
 

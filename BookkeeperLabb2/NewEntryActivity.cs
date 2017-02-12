@@ -25,7 +25,7 @@ namespace BookkeeperLabb2
 		private double tax;
 		private double tempTax;
 		private string description = "";
-		private bool income = true;
+		private bool isIncome = true;
 
 		private RadioButton rbIncome;
 		private RadioButton rbExpense;
@@ -62,7 +62,7 @@ namespace BookkeeperLabb2
 			tvAmountExlTax = FindViewById<TextView>(Resource.Id.TV_totalAmountExclTax);
 			btnAddEntry = FindViewById<Button>(Resource.Id.BTN_addEntry);
 
-			setAdapters(income);
+			SetAdapters(isIncome);
 
 
 
@@ -82,7 +82,7 @@ namespace BookkeeperLabb2
 				SetEntryValues();
 				Entry e = new Entry
 				{
-					isIncome = income,
+					isIncome = isIncome,
 					Description = description,
 					Date = dateTime,
 					Amount = amount,
@@ -98,8 +98,8 @@ namespace BookkeeperLabb2
 			{
 				if (rbIncome.Checked)
 				{
-					Console.WriteLine(income = true);
-					SetTypeSpinner(income);
+					Console.WriteLine(isIncome = true);
+					SetTypeSpinner(isIncome);
 				}
 			};
 			/* Whenever (RadioButton rbExpense) is checked, it changes (Bool income) to false and calls method SetTypeSpinner() */ 
@@ -107,8 +107,8 @@ namespace BookkeeperLabb2
 			{
 				if (rbExpense.Checked)
 				{
-					Console.WriteLine(income = false);
-					SetTypeSpinner(income);
+					Console.WriteLine(isIncome = false);
+					SetTypeSpinner(isIncome);
 				}
 
 			};
@@ -136,10 +136,10 @@ namespace BookkeeperLabb2
 		}
 
 		/* Method for setting ArrayAdapters, it calls SetMoneyAccountSpinner(), SetTypeSpinner() and SetTaxRateSpinner() */
-		private void setAdapters(bool b)
+		private void SetAdapters(bool b)
 		{
 			SetMoneyAccountSpinner();
-			SetTypeSpinner(income);
+			SetTypeSpinner(isIncome);
 			SetTaxRateSpinner();
 
 		}
@@ -147,7 +147,7 @@ namespace BookkeeperLabb2
 		private void SetMoneyAccountSpinner()
 		{
 			ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
-														BookKeeperManager.Instance.getAccounts("moneyAccount"));
+														BookKeeperManager.Instance.GetAccounts("moneyAccount"));
 			typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			spMoneyAccount.Adapter = typeAdapter;
 		}
@@ -157,14 +157,14 @@ namespace BookkeeperLabb2
 			if (income)
 			{
 				ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
-															BookKeeperManager.Instance.getAccounts("income"));
+															BookKeeperManager.Instance.GetAccounts("income"));
 				typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 				spAccount.Adapter = typeAdapter;
 			}
 			else
 			{
 				ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
-															BookKeeperManager.Instance.getAccounts("expense"));
+															BookKeeperManager.Instance.GetAccounts("expense"));
 				typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 				spAccount.Adapter = typeAdapter;
 			}
@@ -173,7 +173,7 @@ namespace BookkeeperLabb2
 		private void SetTaxRateSpinner()
 		{
 			ArrayAdapter typeAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerItem,
-														BookKeeperManager.Instance.getTaxRates());
+														BookKeeperManager.Instance.GetTaxRates());
 			typeAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			spTax.Adapter = typeAdapter;
 		}
@@ -189,13 +189,13 @@ namespace BookkeeperLabb2
 
 			tax = ((TaxRate)spTax.SelectedItem).Tax;
 
-			if (income)
+			if (isIncome)
 			{
-				ac = BookKeeperManager.Instance.getAccounts("income")[spAccount.SelectedItemPosition];
+				ac = BookKeeperManager.Instance.GetAccounts("income")[spAccount.SelectedItemPosition];
 			}
 			else
 			{
-				ac = BookKeeperManager.Instance.getAccounts("expense")[spAccount.SelectedItemPosition];
+				ac = BookKeeperManager.Instance.GetAccounts("expense")[spAccount.SelectedItemPosition];
 			}
 
 			type = ((Account)spAccount.SelectedItem).Number;
